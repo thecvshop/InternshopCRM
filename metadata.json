@@ -1,0 +1,6 @@
+{
+  "name": "InternsHome CRM",
+  "description": "Comprehensive operational CRM managing the student internship lifecycle, company partnerships, interview coordination, and placements.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

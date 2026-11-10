@@ -1,0 +1,307 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "System user with RBAC role profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["Administrator", "Operations", "Trainer", "Placement Team", "HR", "Finance", "Company POC", "Student"] },
+        "status": { "type": "string", "enum": ["active", "suspended", "invited"] },
+        "phone": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "email", "role"]
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "Prospective student lead",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "leadId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "college": { "type": "string" },
+        "course": { "type": "string" },
+        "graduationYear": { "type": "string" },
+        "source": { "type": "string" },
+        "status": { "type": "string", "enum": ["New", "Contacted", "Interested", "In Review", "Converted", "Unqualified"] },
+        "assignedTo": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "leadId", "name", "email", "phone", "status"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Student master lifecycle record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "leadId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "profilePhoto": { "type": "string" },
+        "college": { "type": "string" },
+        "course": { "type": "string" },
+        "graduationYear": { "type": "string" },
+        "skills": { "type": "array" },
+        "currentStage": { "type": "string", "enum": ["In Training", "Trained / To Be Placed", "Interviewing", "Placed", "Didn't Work Out", "Assignment Pending", "Agreement Pending", "Portfolio Review"] },
+        "placementReadiness": { "type": "string", "enum": ["Not Ready", "In Training", "Interview Ready", "Placed"] },
+        "ownerUserId": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "studentId", "name", "email", "phone", "currentStage"]
+    },
+    "Company": {
+      "title": "Company",
+      "description": "Employer / hiring partner",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "industry": { "type": "string" },
+        "website": { "type": "string" },
+        "location": { "type": "string" },
+        "companySize": { "type": "string" },
+        "status": { "type": "string", "enum": ["Active", "Prospect", "Dormant"] },
+        "accountOwner": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "status"]
+    },
+    "JobRole": {
+      "title": "JobRole",
+      "description": "Hiring opening by a company",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "companyId": { "type": "string" },
+        "title": { "type": "string" },
+        "department": { "type": "string" },
+        "location": { "type": "string" },
+        "workMode": { "type": "string", "enum": ["Remote", "Hybrid", "Onsite"] },
+        "skills": { "type": "array" },
+        "stipend": { "type": "string" },
+        "openings": { "type": "number" },
+        "status": { "type": "string", "enum": ["Draft", "Open", "Shortlisting", "Interviewing", "Filled", "Closed"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "companyId", "title", "status"]
+    },
+    "Interview": {
+      "title": "Interview",
+      "description": "Scheduled interview between student and company",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "companyId": { "type": "string" },
+        "companyName": { "type": "string" },
+        "roleTitle": { "type": "string" },
+        "round": { "type": "string" },
+        "scheduledAt": { "type": "string" },
+        "mode": { "type": "string", "enum": ["Google Meet", "Zoom", "In-Person", "Phone"] },
+        "meetUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["Proposed", "Confirmed", "Completed", "Rescheduled", "Cancelled", "Selected", "Rejected"] },
+        "feedback": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "studentId", "companyId", "status", "scheduledAt"]
+    },
+    "Placement": {
+      "title": "Placement",
+      "description": "Student placement record with company",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "companyId": { "type": "string" },
+        "companyName": { "type": "string" },
+        "roleTitle": { "type": "string" },
+        "stipend": { "type": "string" },
+        "offerDate": { "type": "string" },
+        "joiningDate": { "type": "string" },
+        "duration": { "type": "string" },
+        "status": { "type": "string", "enum": ["Offer Released", "Accepted", "Joined", "Completed", "Withdrawn"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "studentId", "companyId", "status"]
+    },
+    "Invoice": {
+      "title": "Invoice",
+      "description": "Billing invoice for placement or services",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "invoiceNumber": { "type": "string" },
+        "companyId": { "type": "string" },
+        "companyName": { "type": "string" },
+        "amount": { "type": "number" },
+        "taxableValue": { "type": "number" },
+        "cgst": { "type": "number" },
+        "sgst": { "type": "number" },
+        "igst": { "type": "number" },
+        "total": { "type": "number" },
+        "dueDate": { "type": "string" },
+        "status": { "type": "string", "enum": ["Draft", "Generated", "Sent", "Paid", "Overdue", "Cancelled"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "invoiceNumber", "companyId", "total", "status"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "Operational task item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "urgent"] },
+        "status": { "type": "string", "enum": ["todo", "in_progress", "completed"] },
+        "dueDate": { "type": "string" },
+        "assignee": { "type": "string" },
+        "relatedEntityType": { "type": "string" },
+        "relatedEntityId": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "title", "priority", "status"]
+    },
+    "RentAnInternEntry": {
+      "title": "RentAnInternEntry",
+      "description": "Rent an Intern applicant submission and candidate live sync record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "city": { "type": "string" },
+        "responsibilities": { "type": "string" },
+        "cvUrl": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "phone"]
+    }
+  },
+  "firestore": {
+    "/rentAnIntern/{entryId}": {
+      "schema": "RentAnInternEntry",
+      "description": "Rent an Intern form responses and applicant tracking"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and credentials"
+    },
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Student leads before onboarding"
+    },
+    "/students/{studentId}": {
+      "schema": "Student",
+      "description": "Enrolled student master records"
+    },
+    "/companies/{companyId}": {
+      "schema": "Company",
+      "description": "Hiring partner companies"
+    },
+    "/rolesOpenings/{roleId}": {
+      "schema": "JobRole",
+      "description": "Open job and internship positions"
+    },
+    "/interviews/{interviewId}": {
+      "schema": "Interview",
+      "description": "Interview appointments"
+    },
+    "/placements/{placementId}": {
+      "schema": "Placement",
+      "description": "Confirmed student placements"
+    },
+    "/invoices/{invoiceId}": {
+      "schema": "Invoice",
+      "description": "Billing and tax invoices"
+    },
+    "/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Operational CRM tasks"
+    },
+    "/activities/{activityId}": {
+      "schema": "object",
+      "description": "Real-time activity logs"
+    },
+    "/trainingBatches/{batchId}": {
+      "schema": "object",
+      "description": "Training programs and cohort batches"
+    },
+    "/assignments/{assignmentId}": {
+      "schema": "object",
+      "description": "Student assignments and submissions"
+    },
+    "/agreements/{agreementId}": {
+      "schema": "object",
+      "description": "Legal student and internship agreements"
+    },
+    "/documents/{documentId}": {
+      "schema": "object",
+      "description": "Student and company uploaded documents"
+    },
+    "/portfolios/{portfolioId}": {
+      "schema": "object",
+      "description": "Student portfolio projects and profiles"
+    },
+    "/automationRuns/{runId}": {
+      "schema": "object",
+      "description": "Automated CRM workflow execution audit records"
+    },
+    "/connectionTest/{docId}": {
+      "schema": "object",
+      "description": "Temporary ping collection for connectivity verification"
+    },
+    "/rentInternJobs/{jobId}": {
+      "schema": "object",
+      "description": "Standardized Rent an Intern gig and job creator records"
+    },
+    "/pricingRules/{ruleId}": {
+      "schema": "object",
+      "description": "Rent an Intern dynamic pricing and duration rules"
+    },
+    "/events/{eventId}": {
+      "schema": "object",
+      "description": "InternsHome events synced from Luma"
+    },
+    "/eventRegistrations/{regId}": {
+      "schema": "object",
+      "description": "Event attendee registrations and CRM matching records"
+    },
+    "/eventMedia/{mediaId}": {
+      "schema": "object",
+      "description": "Event gallery media and photo assets"
+    },
+    "/lumaSyncLogs/{logId}": {
+      "schema": "object",
+      "description": "Luma sync audit and historical import logs"
+    },
+    "/webhookEvents/{eventId}": {
+      "schema": "object",
+      "description": "Processed webhook IDs for idempotency"
+    }
+  }
+}

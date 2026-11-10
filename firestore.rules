@@ -1,0 +1,115 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global development allow rule
+    match /{document=**} {
+      allow read, write: if true;
+    }
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Connection test document
+    match /connectionTest/{docId} {
+      allow read, write: if true;
+    }
+
+    // User profiles
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    // Leads & Admissions
+    match /leads/{leadId} {
+      allow read, write: if true;
+    }
+
+    // Students master records
+    match /students/{studentId} {
+      allow read, write: if true;
+    }
+
+    // Companies & open roles
+    match /companies/{companyId} {
+      allow read, write: if true;
+    }
+    match /rolesOpenings/{roleId} {
+      allow read, write: if true;
+    }
+
+    // Interviews & Placements
+    match /interviews/{interviewId} {
+      allow read, write: if true;
+    }
+    match /placements/{placementId} {
+      allow read, write: if true;
+    }
+
+    // Training, Assignments, Agreements, Portfolios
+    match /trainingBatches/{batchId} {
+      allow read, write: if true;
+    }
+    match /assignments/{assignmentId} {
+      allow read, write: if true;
+    }
+    match /agreements/{agreementId} {
+      allow read, write: if true;
+    }
+    match /portfolios/{portfolioId} {
+      allow read, write: if true;
+    }
+
+    // Billing & Invoices
+    match /invoices/{invoiceId} {
+      allow read, write: if true;
+    }
+
+    // Tasks, Activities & Automated Workflows
+    match /tasks/{taskId} {
+      allow read, write: if true;
+    }
+    match /activities/{activityId} {
+      allow read, write: if true;
+    }
+    match /automationRuns/{runId} {
+      allow read, write: if true;
+    }
+    match /documents/{documentId} {
+      allow read, write: if true;
+    }
+    match /auditLogs/{logId} {
+      allow read, write: if true;
+    }
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
+    match /rentAnIntern/{entryId} {
+      allow read, write: if true;
+    }
+    match /rentInternJobs/{jobId} {
+      allow read, write: if true;
+    }
+    match /pricingRules/{ruleId} {
+      allow read, write: if true;
+    }
+
+    // InternsHome Luma Events & Community Module
+    match /events/{eventId} {
+      allow read, write: if true;
+    }
+    match /eventRegistrations/{regId} {
+      allow read, write: if true;
+    }
+    match /eventMedia/{mediaId} {
+      allow read, write: if true;
+    }
+    match /lumaSyncLogs/{logId} {
+      allow read, write: if true;
+    }
+    match /webhookEvents/{eventId} {
+      allow read, write: if true;
+    }
+  }
+}
